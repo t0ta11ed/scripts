@@ -40,6 +40,6 @@ $end = get-date
 $elapsedTime = New-Timespan -Start $start -End $end
 
 if ($over10) {
-    # Send and email.
+    # Send email.
     Send-MailMessage
     }
