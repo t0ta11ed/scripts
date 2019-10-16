@@ -9,14 +9,14 @@ $over10 = New-Object System.Collections.ArrayList
 Connect-VIServer -Server somevCenter -User SomeUser -Password 'UserPw' | Out-Null
 $esxhosts = @('host1','host2','host3')
 
-foreach ($hostname in $esxhosts) { 
-
 $interval = 5
 $stat = 'cpu.ready.summation'
 $finish = Get-Date
 $start = ($finish).AddHours(- $interval)
 
-Get-Stat -Entity $entity -Stat $stat -Start $start -Finish $finish -Instance "" -MaxSamples 1 -Realtime | select -last 10 |
+foreach ($esxhost in $esxhosts) { 
+
+Get-Stat -Entity $esxhost -Stat $stat -Start $start -Finish $finish -Instance "" -MaxSamples 1 -Realtime | select -last 10 |
 
 Group-Object -Property {$_.Entity.Name} | %{
 
